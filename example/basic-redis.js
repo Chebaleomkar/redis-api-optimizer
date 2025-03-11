@@ -1,19 +1,15 @@
 import { createClient } from "redis";
 
-const client = createClient();
+export const client = createClient();
 
 client.on('error' , (err) => console.log("Redis Error" , err))
 
-async function run(){
+export const  connect = async() =>{
     await client.connect();
     console.log("Connected to Redis")
-
-    await client.set("message" , "hello redis !");
-
-    const value = await client.get('message');
-    console.log("Retrieved from redis" , value);
-
-    await client.disconnect();
 }
 
-run();
+export const  disconnect =async() =>{
+    await client.disconnect();
+    console.log("Disconnect to redis");
+}
